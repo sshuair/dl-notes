@@ -1,11 +1,23 @@
 # coding=utf-8
 """
+CNN一般步骤
+1. Load and normalizing the training and test datasets using torchvision
+2. Define a Convolution Neural Network
+    - Define the neural network that has some learnable parameters (or weights)
+    - Propagate gradients back into the network’s parameters
+    - Update the weights of the network, typically using a simple update rule: weight = weight + learning_rate * gradient
+3. Define a loss function (how far is the output from being correct)
+4. Train the network on the training data
+    - Iterate over a dataset of inputs (batch)
+5. Test the network on the test data
+
 # 注意：
 1. pytorch 的训练都是以batch的方式进行的，也就是说只支持批量输入：[batch_size, image_channel, image_width, image_height]。
 2. 在设计网络结构时，尤其是在卷积层转到全连接层时候，全连接层的第一层（input_channel, output_channel）一定等于卷积池化层最后一层中的
    image_channel * image_width * image_height；
    flat features的时候需要用到nn.view(-1, image_channel * image_width * image_height)。
-3. 在定义网络结构时，__init__中定义的结构与forward中的F.func能够起到相同的作用。
+3. 在定义网络结构时，__init__中定义的结构与forward中的F.func能够起到相同的作用；
+   如果不在__init__中定义pool1，那么可以在forward中用x=f.max_pool2d(self.conv1(x),2)表示，参考：Zen_君 & examples/mnist/main.py
 4. flat features时，不能用这种方法 x = x.view(batch_size, -1)，因为最后一个epoch可能不是正好整除batch_size
 5. 所有的pytorch数据都要组织成Variable
 """
@@ -40,6 +52,9 @@ testloader = DataLoader(
 
 
 class Net2(nn.Module):
+    """
+    定义网络结构
+    """
     def __init__(self):
         super(Net2, self).__init__()
         self.conv1 = nn.Conv2d(1, 6, (5, 5))
