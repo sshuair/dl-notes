@@ -1,10 +1,5 @@
 # coding=utf-8
 
-"""
-使用datasets.ImageFolder方式训练MNIST
-"""
-
-
 from functools import reduce
 from operator import mul
 import torch.nn as nn
@@ -15,20 +10,26 @@ from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
 from torchvision import transforms
 
+from pytorch.utils.data import ImageFloderSingle
+
 batch_size = 64
 
 trainloader = DataLoader(
-    dataset=ImageFolder(root='../data/cifar/train', transform=transforms.Compose([transforms.ToTensor(),
-                                                transforms.Normalize((0.1307,), (0.3081,))]
-                                               )),
-    batch_size=batch_size, shuffle=True
+    dataset=ImageFloderSingle(root = '../data/cifar/train_single',
+                              lstpath='../data/cifar/train_single_list.lst',
+                              transform=transforms.Compose([transforms.ToTensor(),
+                                                            transforms.Normalize((0.1307,), (0.3081,))]
+                                        )),
+                              batch_size=batch_size, shuffle=True
 )
 
 testloader = DataLoader(
-    dataset=ImageFolder(root='../data/cifar/train', transform=transforms.Compose([transforms.ToTensor(),
-                                                transforms.Normalize((0.1307,), (0.3081,))]
-                                               )),
-    batch_size=batch_size, shuffle=True
+    dataset=ImageFloderSingle(root = '../data/cifar/test_single',
+                              lstpath='../data/cifar/test_single_list.lst',
+                              transform=transforms.Compose([transforms.ToTensor(),
+                                                            transforms.Normalize((0.1307,), (0.3081,))]
+                                        )),
+                              batch_size=batch_size, shuffle=True
 )
 
 
