@@ -23,6 +23,7 @@ TIF_EXTENSIONS = [
 
 def default_loader(path, filetype):
     """
+    TODO: 重构filetype
     :param path: 
     :param filetype: 
     :return: 
@@ -67,9 +68,9 @@ def lstfile_multi(root, lstpath):
     :return: images(image_path, class)
     """
     images = []
-    with open(lstpath,'r',) as f:
+    with open(lstpath, 'r',) as f:
         for line in csv.reader(f, delimiter="\t"):
-            cls = int(line[1:-1])
+            cls = np.array([int(x) for x in line[1:-1]]) # 必须是np.array, 不能用list，否则enumerate时target不是tensor
             filename = line[-1]
             item = (os.path.join(root, filename), cls)
             if os.path.exists(os.path.join(root, filename)):
@@ -81,14 +82,14 @@ class ImageFloderLstSig(Dataset):
     """
     classification: single label, file list
     """
-    def __init__(self, root, lstpath,filetype='.tif', transform=None, target_transform=None, loader=default_loader):
+    def __init__(self, root, lstpath, filetype='tif', transform=None, target_transform=None, loader=default_loader):
         imgs = lstfile_single(root, lstpath)
         if len(imgs) == 0:
             raise(RuntimeError("Found 0 images in subfolders of: " + root + "\n"
                                "Supported image extensions are: " + ",".join(IMG_EXTENSIONS)))
         self.root = root
         self.imgs = imgs
-        self.filetype = filetype
+        self.filetype = '.'+filetype
         self.transform = transform
         self.target_transform = target_transform
         self.loader = loader
@@ -111,20 +112,21 @@ class ImageFloderLstMulti(Dataset):
     """
     classification: multi label, file list
     """
-    def __init__(self, root, lstpath, transform=None, target_transform=None, loader=default_loader):
-        imgs = lstfile_single(root, lstpath)
+    def __init__(self, root, lstpath, filetype='tif', transform=None, target_transform=None, loader=default_loader):
+        imgs = lstfile_multi(root, lstpath)
         if len(imgs) == 0:
             raise(RuntimeError("Found 0 images in subfolders of: " + root + "\n"
                                "Supported image extensions are: " + ",".join(IMG_EXTENSIONS)))
         self.root = root
         self.imgs = imgs
+        self.filetype = '.' + filetype
         self.transform = transform
         self.target_transform = target_transform
         self.loader = loader
 
     def __getitem__(self, index):
         path, target = self.imgs[index]
-        img = self.loader(path)
+        img = self.loader(path, self.filetype)
         if self.transform is not None:
             img = self.transform(img)
         if self.target_transform is not None:
