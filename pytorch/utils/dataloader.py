@@ -9,7 +9,7 @@ import os
 import tifffile
 import numpy as np
 
-# TODO:2017-06-26:先把multilabel走通，再把single label和multi labe代码合并
+# TODO:
 
 IMG_EXTENSIONS = [
     '.jpg', '.JPG', '.jpeg', '.JPEG',
@@ -40,8 +40,8 @@ def lstfile_single(root, lstpath):
     """
     将文件路image路径组装成tuple
     file organization：
-    id, class, file_path
-    1 , 4 , plane.jpg
+    id \t class \t file_path
+    1  \t 4  \t plane.jpg
     :param root: train/val 文件路径
     :param lstpath: 类别以及文件对应关系文件
     :return: images(image_path, class)
@@ -61,8 +61,8 @@ def lstfile_multi(root, lstpath):
     """
     将文件路image路径组装成tuple
     file organization：
-    id, cls1, cls2,... file_path
-    1,  1, 0, 1 ... plane_people.jpg
+    id \t cls1 \t cls2 ... file_path
+    1 \t  1 \t 0 \t1 ... plane_people.jpg
     :param root: train/val 文件路径
     :param lstpath: 类别以及文件对应关系文件
     :return: images(image_path, class)
@@ -82,7 +82,7 @@ class ImageFloderLstSig(Dataset):
     """
     classification: single label, file list
     """
-    def __init__(self, root, lstpath, filetype='tif', transform=None, target_transform=None, loader=default_loader):
+    def __init__(self, root, lstpath, filetype='jpg', transform=None, target_transform=None, loader=default_loader):
         imgs = lstfile_single(root, lstpath)
         if len(imgs) == 0:
             raise(RuntimeError("Found 0 images in subfolders of: " + root + "\n"
@@ -112,7 +112,7 @@ class ImageFloderLstMulti(Dataset):
     """
     classification: multi label, file list
     """
-    def __init__(self, root, lstpath, filetype='tif', transform=None, target_transform=None, loader=default_loader):
+    def __init__(self, root, lstpath, filetype='jpg', transform=None, target_transform=None, loader=default_loader):
         imgs = lstfile_multi(root, lstpath)
         if len(imgs) == 0:
             raise(RuntimeError("Found 0 images in subfolders of: " + root + "\n"
@@ -136,6 +136,12 @@ class ImageFloderLstMulti(Dataset):
 
     def __len__(self):
         return len(self.imgs)
+
+class ImageFolderDet(Dataset):
+    """
+    Object Detection, 对象检测
+    """
+    pass
 
 class ImageFloderSeg(Dataset):
     """
