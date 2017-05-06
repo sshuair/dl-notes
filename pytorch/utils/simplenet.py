@@ -31,8 +31,8 @@ class SimpleNet(nn.Module):
         self.layer1 = nn.Sequential(
             *self.make_conv_bn_relu(in_channels,32),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            #nn.Dropout(p=0.25),
         )
+            #nn.Dropout(p=0.25),
         stride*=2
 
         self.layer2 = nn.Sequential(
