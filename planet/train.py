@@ -103,8 +103,8 @@ def phare_args():
                         default=128, type=int, help='mini batch seize')
     pharer.add_argument('--root', help='root dir of the image')
     pharer.add_argument('--lr', default=0.01, help='learning rate')
-    pharer.add_argument('--width', default=224, help='scale width')
-    pharer.add_argument('--height', default=224, help='scale height')
+    pharer.add_argument('--width', default=224, type=int, help='scale width')
+    pharer.add_argument('--height', default=224, type=int, help='scale height')
     args = pharer.parse_args()
 
     if args.gpu > -1:
