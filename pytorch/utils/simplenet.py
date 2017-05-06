@@ -30,29 +30,29 @@ class SimpleNet(nn.Module):
 
         self.layer1 = nn.Sequential(
             *self.make_conv_bn_relu(in_channels,32),
-            nn.MaxPool2d(kernel_size=2, stride=2),
-        )
+            nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
+        )
         stride*=2
 
         self.layer2 = nn.Sequential(
             *self.make_conv_bn_relu(32,64),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(p=0.25),
+            nn.Dropout(p=0.25)
         )
         stride*=2
 
         self.layer3 = nn.Sequential(
             *self.make_conv_bn_relu(64,128),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(p=0.50),
+            nn.Dropout(p=0.50)
         )
         stride*=2
 
         self.layer5 = nn.Sequential(
             nn.Linear(128 * (height//stride) *(width//stride), 512, bias=False),
             nn.BatchNorm1d(512),
-            nn.ReLU(inplace=True),
+            nn.ReLU(inplace=True)
         )
 
         self.logit = nn.Linear(512, num_classes)
