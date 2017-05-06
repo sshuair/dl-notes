@@ -49,10 +49,10 @@ def train(epoch):
         else:
             data, target = Variable(data), Variable(target)
 
+        optimizer.zero_grad()
         y_pred = net(data)
         # BCELoss need FloatTensor data type
         loss = criterion(y_pred, target.float())
-        optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
@@ -60,12 +60,12 @@ def train(epoch):
 
         # Now once you have your prediction, you need to threshold.
         # 0.5 is the default naive way but it's probably not optimal. In any case, once you get there, great !
-        # if batch_idx % batch_size == 0:
-        logging.info('Train Epoch[{}]: Batch[{}/{} ({:.2%})]  Loss: {:.6f}  acc(f2): {:.6f}'.format(
-            epoch, batch_idx * batch_size, len(trainloader.dataset),
-            batch_size * batch_idx / len(trainloader.dataset),
-            loss.data[0],  f2
-        ))
+        if batch_idx % args.batch_size == 0:
+            logging.info('Train Epoch[{}]: Batch[{}/{} ({:.2%})]  Loss: {:.6f}  acc(f2): {:.6f}'.format(
+                epoch, batch_idx * args.batch_size, len(trainloader.dataset),
+                args.batch_size * batch_idx / len(trainloader.dataset),
+                loss.data[0],  f2
+            ))
 
 
 def validate(epoch):
@@ -131,6 +131,7 @@ if __name__ == '__main__':
             root='./data/train-jpg', lstpath='./data/train.lst', filetype='jpg',
             transform=transforms.Compose([
                 transforms.Scale((height, width)),
+                transforms.RandomHorizontalFlip(),
                 transforms.ToTensor(),
                 # transforms.Normalize((0.1307,), (0.3081,))
             ])),
@@ -143,6 +144,7 @@ if __name__ == '__main__':
             root='./data/train-jpg', lstpath='./data/val.lst', filetype='jpg',
             transform=transforms.Compose([
                 transforms.Scale((height, width)),
+                transforms.RandomHorizontalFlip(),
                 transforms.ToTensor(),
                 # transforms.Normalize((0.1307,), (0.3081,))
             ])),
