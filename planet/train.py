@@ -115,7 +115,7 @@ def phare_args():
     return args
 
 def save_check_point(net, epoch):
-    filename = './params/vgg11_bn_' + str(epoch) + '.pkl'
+    filename = './params/resnet101' + str(epoch) + '.pkl'
     torch.save(net.state_dict(), filename)
 
 if __name__ == '__main__':
@@ -154,7 +154,7 @@ if __name__ == '__main__':
         shuffle=True,
     )
 
-    net = models.vgg11_bn(num_classes=17)
+    net = models.resnet101(num_classes=17)
     # net = SimpleNet64_2((in_channels,height,width), num_classes=17)
     param_structure(net)
     if args.cuda:
