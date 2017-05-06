@@ -60,12 +60,12 @@ def train(epoch):
 
         # Now once you have your prediction, you need to threshold.
         # 0.5 is the default naive way but it's probably not optimal. In any case, once you get there, great !
-        if batch_idx % args.batch_size == 0:
-            logging.info('Train Epoch[{}]: Batch[{}/{} ({:.2%})]  Loss: {:.6f}  acc(f2): {:.6f}'.format(
-                epoch, batch_idx * args.batch_size, len(trainloader.dataset),
-                args.batch_size * batch_idx / len(trainloader.dataset),
-                loss.data[0],  f2
-            ))
+        # if batch_idx % args.batch_size == 0:
+        logging.info('Train Epoch[{}]: Batch[{}/{} ({:.2%})]  Loss: {:.6f}  acc(f2): {:.6f}'.format(
+            epoch, batch_idx * args.batch_size, len(trainloader.dataset),
+            args.batch_size * batch_idx / len(trainloader.dataset),
+            loss.data[0],  f2
+        ))
 
 
 def validate(epoch):
@@ -82,7 +82,7 @@ def validate(epoch):
         # loss已经是每个batch求和之后的结果
         loss += criterion(y_pred, target.float()).cpu().data[0]
         batch_f2 = fbeta_score(target.data.cpu().numpy(), y_pred.data.cpu().numpy() > 0.2, beta=2, average='samples')
-        f2 += batch_size * batch_f2
+        f2 += args.batch_size * batch_f2
 
     loss = loss / len(validateloader)  #
     f2 = f2 / len(validateloader.dataset)
@@ -103,6 +103,8 @@ def phare_args():
                         default=128, type=int, help='mini batch seize')
     pharer.add_argument('--root', help='root dir of the image')
     pharer.add_argument('--lr', default=0.01, help='learning rate')
+    pharer.add_argument('-w','--width', default=0.01, help='scale width')
+    pharer.add_argument('-h','--height', default=0.01, help='scale height')
     args = pharer.parse_args()
 
     if args.gpu > -1:
@@ -123,7 +125,7 @@ if __name__ == '__main__':
         torch.cuda.set_device(args.cuda_id)
     batch_size = args.batch_size
 
-    height, width = 256, 256
+    height, width = args.width, args.height
     in_channels = 3
 
     trainloader = DataLoader(
