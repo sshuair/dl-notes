@@ -2,14 +2,13 @@
 # -*- coding: utf-8 -*-
 # @Author  : sshuair
 # @Time    : 2017/4/29
-# @Project : kaggle-planet
 
 from functools import reduce
 import torch.nn as nn
 import torch.nn.functional as F
 
 
-class LenNt(nn.Module):
+class LeNet(nn.Module):
     def __init__(self, num_classes):
         super(LenNt, self).__init__()
         self.conv1 = nn.Conv2d(3, 6, kernel_size=5)
@@ -56,9 +55,9 @@ class LenNt(nn.Module):
 
 
 
-class PlaentNet(nn.Module):
+class AnokasNet(nn.Module):
     def __init__(self, num_classes):
-        super(PlaentNet, self).__init__()
+        super(AnokasNet, self).__init__()
         self.features = nn.Sequential(
             # input_shape=[batch_size, 3, 32, 32] batch_size, image_channel, image_width, image_height
             nn.Conv2d(3, 32, kernel_size=3),
