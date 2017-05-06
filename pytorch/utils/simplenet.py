@@ -29,21 +29,21 @@ class SimpleNet(nn.Module):
         stride=1
 
         self.layer1 = nn.Sequential(
-            *self.make_conv_bn_relu(in_channels,32),
+            self.make_conv_bn_relu(in_channels,32),
             nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
         )
         stride*=2
 
         self.layer2 = nn.Sequential(
-            *self.make_conv_bn_relu(32,64),
+            self.make_conv_bn_relu(32,64),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout(p=0.25)
         )
         stride*=2
 
         self.layer3 = nn.Sequential(
-            *self.make_conv_bn_relu(64,128),
+            self.make_conv_bn_relu(64,128),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout(p=0.50)
         )
@@ -84,14 +84,14 @@ class SimpleNet1(nn.Module):
         stride=1
 
         self.layer1 = nn.Sequential(
-            *self.make_conv_bn_relu(in_channels,32),
+            self.make_conv_bn_relu(in_channels,32),
             nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
         )
         stride*=2
 
         self.layer2 = nn.Sequential(
-            *self.make_conv_bn_relu(32,64),
+            self.make_conv_bn_relu(32,64),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout(p=0.25)
         )
@@ -99,7 +99,7 @@ class SimpleNet1(nn.Module):
         dim2 = 64 * (height//stride) *(width//stride)
 
         self.layer3 = nn.Sequential(
-            *self.make_conv_bn_relu(64,128),
+            self.make_conv_bn_relu(64,128),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout(p=0.50)
         )
@@ -161,28 +161,28 @@ class SimpleNet2(nn.Module):
         stride=1
 
         self.layer0 = nn.Sequential(
-            *self.make_conv_bn_prelu(in_channels, 8, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 )
+            self.make_conv_bn_prelu(in_channels, 8, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 )
         )
 
         self.layer1 = nn.Sequential(
-            *self.make_conv_bn_prelu( 8, 32),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=3, stride=1, padding=1 ),
+            self.make_conv_bn_prelu( 8, 32),
+            self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(32, 32, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
         )
         stride*=2
 
         self.layer2 = nn.Sequential(
-            *self.make_conv_bn_prelu(32, 64),
-            *self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(64, 64, kernel_size=3, stride=1, padding=1 ),
+            self.make_conv_bn_prelu(32, 64),
+            self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(64, 64, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout(p=0.25)
         )
@@ -190,11 +190,11 @@ class SimpleNet2(nn.Module):
         dim2 = 64 * (height//stride) *(width//stride)
 
         self.layer3 = nn.Sequential(
-            *self.make_conv_bn_prelu( 64, 128),
-            *self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(128, 128, kernel_size=3, stride=1, padding=1 ),
+            self.make_conv_bn_prelu( 64, 128),
+            self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(128, 128, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout(p=0.50)
         )
@@ -202,8 +202,8 @@ class SimpleNet2(nn.Module):
         dim3 = 128 * (height//stride) *(width//stride)
 
         self.layer5 = nn.Sequential(
-            *self.make_linear_bn_relu(64+128, 512),
-            *self.make_linear_bn_relu(512, 512)
+            self.make_linear_bn_relu(64+128, 512),
+            self.make_linear_bn_relu(512, 512)
         )
 
         self.logit = nn.Linear(512, num_classes)
@@ -260,39 +260,39 @@ class SimpleNet64_2(nn.Module):
         stride=1
 
         self.layer0 = nn.Sequential(
-            *self.make_conv_bn_prelu(in_channels, 8, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 )
+            self.make_conv_bn_prelu(in_channels, 8, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 )
         )
 
         self.layer1 = nn.Sequential(
-            *self.make_conv_bn_prelu( 8, 32),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=3, stride=1, padding=1 ),
+            self.make_conv_bn_prelu( 8, 32),
+            self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(32, 32, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
         )
         stride*=2
 
         self.layer2 = nn.Sequential(
-            *self.make_conv_bn_prelu(32, 32),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(32, 32, kernel_size=3, stride=1, padding=1 ),
+            self.make_conv_bn_prelu(32, 32),
+            self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(32, 32, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
         )
         stride*=2
 
         self.layer3 = nn.Sequential(
-            *self.make_conv_bn_prelu(32, 64),
-            *self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(64, 64, kernel_size=3, stride=1, padding=1 ),
+            self.make_conv_bn_prelu(32, 64),
+            self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(64, 64, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout(p=0.25)
         )
@@ -300,11 +300,11 @@ class SimpleNet64_2(nn.Module):
         dim2 = 64 * (height//stride) *(width//stride)
 
         self.layer4 = nn.Sequential(
-            *self.make_conv_bn_prelu( 64, 128),
-            *self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(128, 128, kernel_size=3, stride=1, padding=1 ),
+            self.make_conv_bn_prelu( 64, 128),
+            self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
+            self.make_conv_bn_prelu(128, 128, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout(p=0.50)
         )
@@ -314,8 +314,8 @@ class SimpleNet64_2(nn.Module):
 
 
         self.layer5 = nn.Sequential(
-            *self.make_linear_bn_relu(64+128, 512),
-            *self.make_linear_bn_relu(512, 512)
+            self.make_linear_bn_relu(64+128, 512),
+            self.make_linear_bn_relu(512, 512)
         )
 
         self.logit = nn.Linear(512, num_classes)
