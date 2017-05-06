@@ -85,7 +85,7 @@ class SimpleNet1(nn.Module):
 
         self.layer1 = nn.Sequential(
             *self.make_conv_bn_relu(in_channels,32),
-            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
         )
         stride*=2
@@ -93,7 +93,7 @@ class SimpleNet1(nn.Module):
         self.layer2 = nn.Sequential(
             *self.make_conv_bn_relu(32,64),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(p=0.25),
+            nn.Dropout(p=0.25)
         )
         stride*=2
         dim2 = 64 * (height//stride) *(width//stride)
@@ -101,7 +101,7 @@ class SimpleNet1(nn.Module):
         self.layer3 = nn.Sequential(
             *self.make_conv_bn_relu(64,128),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(p=0.50),
+            nn.Dropout(p=0.50)
         )
         stride*=2
         dim3 = 128 * (height//stride) *(width//stride)
@@ -109,7 +109,7 @@ class SimpleNet1(nn.Module):
         self.layer5 = nn.Sequential(
             nn.Linear(dim2+dim3, 512, bias=False),
             nn.BatchNorm1d(512),
-            nn.ReLU(inplace=True),
+            nn.ReLU(inplace=True)
         )
 
         self.logit = nn.Linear(512, num_classes)
@@ -163,7 +163,7 @@ class SimpleNet2(nn.Module):
         self.layer0 = nn.Sequential(
             *self.make_conv_bn_prelu(in_channels, 8, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 ),
+            *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 )
         )
 
         self.layer1 = nn.Sequential(
@@ -172,7 +172,7 @@ class SimpleNet2(nn.Module):
             *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(32, 32, kernel_size=3, stride=1, padding=1 ),
-            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
         )
         stride*=2
@@ -184,7 +184,7 @@ class SimpleNet2(nn.Module):
             *self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(64, 64, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(p=0.25),
+            nn.Dropout(p=0.25)
         )
         stride*=2
         dim2 = 64 * (height//stride) *(width//stride)
@@ -196,7 +196,7 @@ class SimpleNet2(nn.Module):
             *self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(128, 128, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(p=0.50),
+            nn.Dropout(p=0.50)
         )
         stride*=2
         dim3 = 128 * (height//stride) *(width//stride)
@@ -262,7 +262,7 @@ class SimpleNet64_2(nn.Module):
         self.layer0 = nn.Sequential(
             *self.make_conv_bn_prelu(in_channels, 8, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 ),
-            *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 ),
+            *self.make_conv_bn_prelu(8, 8, kernel_size=1, stride=1, padding=0 )
         )
 
         self.layer1 = nn.Sequential(
@@ -271,7 +271,7 @@ class SimpleNet64_2(nn.Module):
             *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(32, 32, kernel_size=3, stride=1, padding=1 ),
-            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
         )
         stride*=2
@@ -282,7 +282,7 @@ class SimpleNet64_2(nn.Module):
             *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(32, 32, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(32, 32, kernel_size=3, stride=1, padding=1 ),
-            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.MaxPool2d(kernel_size=2, stride=2)
             #nn.Dropout(p=0.25),
         )
         stride*=2
@@ -294,7 +294,7 @@ class SimpleNet64_2(nn.Module):
             *self.make_conv_bn_prelu(64, 64, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(64, 64, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(p=0.25),
+            nn.Dropout(p=0.25)
         )
         stride*=2
         dim2 = 64 * (height//stride) *(width//stride)
@@ -306,7 +306,7 @@ class SimpleNet64_2(nn.Module):
             *self.make_conv_bn_prelu(128, 128, kernel_size=1, stride=1, padding=0 ),
             *self.make_conv_bn_prelu(128, 128, kernel_size=3, stride=1, padding=1 ),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Dropout(p=0.50),
+            nn.Dropout(p=0.50)
         )
         stride*=2
         dim3 = 128 * (height//stride) *(width//stride)
