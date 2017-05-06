@@ -115,7 +115,7 @@ def phare_args():
     return args
 
 def save_check_point(net, epoch):
-    filename = './params/resnet_' + str(epoch) + '.pkl'
+    filename = './params/vgg11_bn_' + str(epoch) + '.pkl'
     torch.save(net.state_dict(), filename)
 
 if __name__ == '__main__':
