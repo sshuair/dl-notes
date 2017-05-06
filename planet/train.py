@@ -20,7 +20,7 @@ from sklearn.metrics import fbeta_score
 
 from pytorch.utils.dataloader import ImageFloderLstMulti
 from pytorch.utils.network import AnokasNet
-from pytorch.utils.simplenet import SimpleNet64_2
+# from pytorch.utils.simplenet import SimpleNet64_2
 from pytorch.utils.visualize import param_structure
 import torchvision.models as models
 
@@ -123,7 +123,7 @@ if __name__ == '__main__':
         torch.cuda.set_device(args.cuda_id)
     batch_size = args.batch_size
 
-    height, width = 32, 32
+    height, width = 256, 256
     in_channels = 3
 
     trainloader = DataLoader(
@@ -150,8 +150,8 @@ if __name__ == '__main__':
         shuffle=True,
     )
 
-    # net = models.resnet18(num_classes=17)
-    net = SimpleNet64_2((in_channels,height,width), num_classes=17)
+    net = models.resnet18(num_classes=17)
+    # net = SimpleNet64_2((in_channels,height,width), num_classes=17)
     param_structure(net)
     if args.cuda:
         net.cuda()
