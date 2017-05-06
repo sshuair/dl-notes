@@ -154,7 +154,7 @@ if __name__ == '__main__':
         shuffle=True,
     )
 
-    net = models.resnet18(num_classes=17)
+    net = models.vgg11_bn(num_classes=17)
     # net = SimpleNet64_2((in_channels,height,width), num_classes=17)
     param_structure(net)
     if args.cuda:
